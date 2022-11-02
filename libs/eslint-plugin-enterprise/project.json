@@ -16,24 +16,14 @@
                     "cpy ./libs/eslint-plugin-enterprise/README.md ./node_modules/@angular-ru/eslint-plugin-enterprise --flat"
                 ]
             },
+            "dependsOn": [{ "projects": "dependencies", "target": "build" }],
             "outputs": ["./node_modules/@angular-ru/eslint-plugin-enterprise"]
         },
         "publish": {
             "builder": "@nrwl/workspace:run-commands",
-            "options": { "command": "npm publish ./node_modules/@angular-ru/eslint-plugin-enterprise --ignore-scripts" }
-        },
-        "version": {
-            "executor": "@jscutlery/semver:version",
             "options": {
-                "postTargets": ["eslint-plugin-enterprise:publish"],
-                "commitMessageFormat": "chore(${projectName}): release version ${version} [ci skip]",
-                "versionTagPrefix": "@angular-ru/eslint-plugin-enterprise-",
-                "skipProjectChangelog": true,
-                "baseBranch": "origin/master",
-                "trackDeps": false,
-                "noVerify": true
-            },
-            "dependsOn": [{ "target": "version", "projects": "dependencies" }]
+                "command": "npm publish ./node_modules/@angular-ru/eslint-plugin-enterprise --ignore-scripts || echo \"already published\""
+            }
         }
     }
 }
